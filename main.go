@@ -4,6 +4,7 @@ import (
 	"crowdfunding/auth"
 	"crowdfunding/handler"
 	"crowdfunding/user"
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -22,6 +23,25 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+
+	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1fQ.ZcBglwUFiMqNXpLCJqexEdP29fkHnOT2px_DDA9ZOOM")
+
+	if err != nil {
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+	}
+
+	if token.Valid {
+		fmt.Println("Token Valid")
+		fmt.Println("Token Valid")
+		fmt.Println("Token Valid")
+	} else {
+		fmt.Println("Token Invalid")
+		fmt.Println("Token Invalid")
+		fmt.Println("Token Invalid")
+	}
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
