@@ -25,35 +25,24 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
+	//repository
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
 
+	//service
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+	campaignService := campaign.NewService(campaignRepository)
+
+	campaigns, err := campaignService.GetCampaigns(1)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	campaignData, err := campaignRepository.FindAll()
+	fmt.Println(campaigns)
 
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	fmt.Println(campaignData)
-
-	campaignSingle, err := campaignRepository.FindByUserID(1)
-
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	for _, r := range campaignSingle {
-		fmt.Println(r)
-		fmt.Println(r.CampaignImages[0].FileName)
-	}
-
+	//handler
 	userHandler := handler.NewUserHandler(userService, authService)
 
 	router := gin.Default()
