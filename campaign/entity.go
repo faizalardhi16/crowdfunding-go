@@ -1,6 +1,8 @@
 package campaign
 
-import "time"
+import (
+	"time"
+)
 
 type Campaign struct {
 	ID               int       `json:"id"`
@@ -15,6 +17,7 @@ type Campaign struct {
 	Slug             string    `json:"slug"`
 	CreatedAt        time.Time `json:"createdAt"`
 	UpdatedAt        time.Time `json:"updatedAt"`
+	CampaignImages   []CampaignImage
 }
 
 type CampaignImage struct {
@@ -24,4 +27,16 @@ type CampaignImage struct {
 	IsPrimary  int       `json:"isPrimary"`
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
+}
+
+type User struct {
+	ID             int       `json:"id"`
+	Name           string    `json:"name"`
+	Email          string    `json:"email"`
+	Occupation     string    `json:"occupation"`
+	PasswordHash   string    `json:"passwordHash"`
+	AvatarFileName string    `json:"avatarFilename"`
+	Role           string    `json:"role"`
+	CreatedAt      time.Time `json:"createdAt"`
+	UpdatedAt      time.Time `json:"updatedAt"`
 }
