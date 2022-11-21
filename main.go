@@ -2,9 +2,11 @@ package main
 
 import (
 	"crowdfunding/auth"
+	"crowdfunding/campaign"
 	"crowdfunding/handler"
 	"crowdfunding/helper"
 	"crowdfunding/user"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -24,8 +26,33 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
+
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	campaignData, err := campaignRepository.FindAll()
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println(campaignData)
+
+	campaignSingle, err := campaignRepository.FindByUserID(1)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	for _, r := range campaignSingle {
+		fmt.Println(r)
+		fmt.Println(r.CampaignImages[0].FileName)
+	}
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
