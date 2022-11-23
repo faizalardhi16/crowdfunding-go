@@ -19,7 +19,7 @@ func NewService() *jwtService {
 	return &jwtService{}
 }
 
-func (j *jwtService) GenerateToken(userID int) (string, error) {
+func (s *jwtService) GenerateToken(userID int) (string, error) {
 	claim := jwt.MapClaims{}
 	claim["user_id"] = userID
 
