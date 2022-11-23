@@ -3,6 +3,7 @@ package handler
 import (
 	"crowdfunding/campaign"
 	"crowdfunding/helper"
+	"crowdfunding/user"
 	"net/http"
 	"strconv"
 
@@ -56,6 +57,34 @@ func (h *campaignHandler) GetCampaign(c *gin.Context) {
 	}
 
 	response := helper.APIResponse("Campaign Detail", http.StatusOK, "success", campaign.FormatDetailCampaign(campaigns))
+
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *campaignHandler) CreateCampaign(c *gin.Context) {
+	var input campaign.CreateCampaignInput
+
+	err := c.ShouldBindJSON(&input)
+
+	if err != nil {
+		response := helper.APIResponse("Failed to Create Campaign!", http.StatusUnprocessableEntity, "error", nil)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	currentUser := c.MustGet("CurrentUser").(user.User)
+
+	input.User = currentUser
+
+	newCampaign, err := h.service.CreateCampaign(input)
+
+	if err != nil {
+		response := helper.APIResponse("Failed to Create Campaign!", http.StatusUnprocessableEntity, "error", nil)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	response := helper.APIResponse("Success to Create Campaign", http.StatusOK, "success", campaign.FormatCampaign(newCampaign))
 
 	c.JSON(http.StatusOK, response)
 }

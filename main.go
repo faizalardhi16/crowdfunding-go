@@ -49,6 +49,7 @@ func main() {
 	api.POST("/email_checkers", userHandler.CheckEmailAvailibility)
 	api.POST("/name_checkers", userHandler.CheckNameAvailibily)
 	api.POST("/avatars", authMiddleware(authService, userService), userHandler.UploadAvatar)
+	api.POST("/campaigns", authMiddleware(authService, userService), campaignHandler.CreateCampaign)
 
 	//get Request
 	api.GET("/campaigns", campaignHandler.GetCampaigns)

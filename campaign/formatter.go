@@ -100,7 +100,7 @@ func FormatDetailCampaign(campaign Campaign) CampaignDetailFormatter {
 	f.UserID = campaign.UserID
 	f.Description = campaign.Description
 	f.User = user
-	f.Perks = strings.Split(campaign.Perks, " ")
+	f.Perks = strings.Split(campaign.Perks, ", ")
 	f.Slug = campaign.Slug
 	f.Images = images
 
