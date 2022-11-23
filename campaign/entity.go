@@ -1,6 +1,7 @@
 package campaign
 
 import (
+	"crowdfunding/user"
 	"time"
 )
 
@@ -10,7 +11,7 @@ type Campaign struct {
 	Name             string    `json:"name"`
 	ShortDescription string    `json:"shortDescription"`
 	Description      string    `json:"description"`
-	Pearks           string    `json:"pearks"`
+	Perks            string    `json:"perks"`
 	BackerCount      int       `json:"backerCount"`
 	GoalAmount       int       `json:"goalAmount"`
 	CurrentAmount    int       `json:"currentAmount"`
@@ -18,6 +19,7 @@ type Campaign struct {
 	CreatedAt        time.Time `json:"createdAt"`
 	UpdatedAt        time.Time `json:"updatedAt"`
 	CampaignImages   []CampaignImage
+	User             user.User
 }
 
 type CampaignImage struct {
